@@ -1,0 +1,49 @@
+1. Algorithm Implementation (Backend) 
+
+•	Member 1:
+    o	Implement BFS (Breadth-First Search)
+    o	Implement DFS (Depth-First Search)
+    o	Implement basic puzzle state management (move tiles, check solvability, etc.)
+    o	Handle input (initial and goal state) and random puzzle generation
+•	Member 2:
+    o	Implement A* (with Manhattan or Misplaced Tile heuristic)
+    o	Focus on heuristic functions for A* and optimization
+•	Joint Task:
+    o	Combine the BFS/DFS and A* code into a single solver class
+    o	Write a function to compare the performance of BFS, DFS, and A*
+    o	Debug and test each other's code
+________________________________________
+________________________________________
+
+2. Visualization and CLI Output 
+
+•	Member 1:
+    o	Design the CLI to print the 8-puzzle at each step of the solution
+    o	Write functions to display the puzzle grid and steps in a readable format
+    o	Implement step-by-step movement (animation-style printing in the terminal)
+•	Member 2:
+    o	Handle logic for animating the path from start to goal (printing each move)
+    o	Create a solution summary (number of moves, time taken, etc.)
+    o	Format the output neatly and add prompts for user interaction
+•	Joint Task:
+    o	Test and visualize different puzzles
+    o	Ensure the output explains how each algorithm progresses
+    o	Compare the steps visually between BFS/DFS and A*
+________________________________________
+________________________________________
+
+3. Testing and Optimization 
+
+•	Member 1:
+    o	Test BFS/DFS performance on different puzzle states
+    o	Optimize the DFS to avoid loops and improve its efficiency
+    o	Ensure BFS finds the shortest path every time
+•	Member 2:
+    o	Test A* with different heuristics (Manhattan vs. Misplaced Tiles)
+    o	Optimize the heuristic functions to improve A* performance
+    o	Benchmark A* and compare it with BFS/DFS in terms of speed
+•	Joint Task:
+    o	Debug errors, test with edge cases (solvable vs. unsolvable puzzles)
+    o	Ensure all algorithms are consistent and reliable
+    o	Document any improvements or limitations
+________________________________________
