@@ -9,6 +9,9 @@ class Puzzle:
         self.empty_card = self.find_empty_card()
         self.cost = 0
 
+    def __lt__(self, other):
+        return self.cost < other.cost
+    
     # A function to find an empty space in the puzzle board
     def find_empty_card(self):
         for i in range(self.size):
@@ -61,3 +64,4 @@ class Puzzle:
             [4,5,6],
             [7,8,0],
         ]
+        return self.board == goal_state
