@@ -3,7 +3,7 @@ import time
 import os
 
 def clear_screen():
-    """Clear the terminal screen"""
+    """Clear the terminal screenn"""
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def print_puzzle_state(puzzle, step=None, move=None):
