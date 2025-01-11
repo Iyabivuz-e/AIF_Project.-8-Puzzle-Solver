@@ -24,7 +24,7 @@ def main():
     print("Solving with DFS...")
     depth_first_search(puzzle)
 
-    print("Solving with A* (Manhattan Distance)...")
+    print("\nSolving with A* (Manhattan Distance)\n")
     a_star(puzzle)
 
 
