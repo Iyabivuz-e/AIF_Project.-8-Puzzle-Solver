@@ -4,100 +4,79 @@ import heapq
 import copy
 from utils import board_to_string
 
+################### BREADTH FIRST SEARCH ALGORITHM ########################
 def breadth_first_search(initial_state):
-    """
-    Implement BFS to find the solution path
-    Returns: (path, nodes_expanded, time_taken)
-    """
+
     start_time = time.time()
-    
     # Initialize the queue with initial state
-    queue = deque([(initial_state, [])])  # Each element is (puzzle_state, path)
+    # Each element is (puzzle_state, path)
+    queue = deque([(initial_state, [])])
     visited = set()
     nodes_expanded = 0
-    
+
     while queue:
         current_state, path = queue.popleft()
         nodes_expanded += 1
-        
+
         # Check if we've reached the goal
         if current_state.is_goal_state():
             end_time = time.time()
             return path, nodes_expanded, end_time - start_time
-            
+
         # Skip if we've seen this state
         if current_state in visited:
             continue
-            
+
         visited.add(current_state)
-        
+
         # Try all possible moves
         for move in current_state.get_possible_moves():
             new_state = current_state.clone()
             new_state.moving_agent(move)
-            
+
             if new_state not in visited:
                 queue.append((new_state, path + [move]))
-    
+
     return None, nodes_expanded, time.time() - start_time
 
+
+################### DEPTH FIRST SEARCH ALGORITHM ########################
 def depth_first_search(initial_state, max_depth=31):
-    """
-    Implement DFS with depth limit to find the solution path
-    Returns: (path, nodes_expanded, time_taken)
-    """
+
     start_time = time.time()
-    
     # Initialize the stack with initial state
     stack = [(initial_state, [], 0)]  # (state, path, depth)
     visited = set()
     nodes_expanded = 0
-    
+
     while stack:
         current_state, path, depth = stack.pop()
         nodes_expanded += 1
-        
+
         if current_state.is_goal_state():
             end_time = time.time()
             return path, nodes_expanded, end_time - start_time
-            
+
         if depth >= max_depth:
             continue
-            
+
         if current_state in visited:
             continue
-            
+
         visited.add(current_state)
-        
+
         # Try all possible moves (in reverse order for DFS)
         for move in reversed(current_state.get_possible_moves()):
             new_state = current_state.clone()
             new_state.moving_agent(move)
-            
+
             if new_state not in visited:
                 stack.append((new_state, path + [move], depth + 1))
-    
+
     return None, nodes_expanded, time.time() - start_time
 
-##################################################################################################
-#### OMRAN: TODO: Implement bfs and dfs algorithms based on the puzzle.py boilerplate   #####
-##################################################################################################
-# import heapq  
-# import heapq
-# import copy
-# from utils import board_to_string
 
-
-# def breadth_first_search(puzzle):
-#     # queue = [puzzle]
-#     # visited = set()
-#     pass
-
-
-# def depth_first_search(puzzle):
-#     pass
-
-
+################### A* ALGORITHM WITH HEURISTIC MNHATTAN DISTANCE ########################
 def a_star(puzzle):
     # Priority queue to store states to explore
     priority_queue = []
@@ -116,7 +95,7 @@ def a_star(puzzle):
 
     # Add the start state to the queue
     heapq.heappush(priority_queue, (start_state.f_cost, 0, start_state))
-    print(f"Start state added to the queue with f_cost: {start_state.f_cost}")
+    # print(f"Start state added to the queue with f_cost: {start_state.f_cost}")
 
     moves_count = 0  # To count the number of moves made
 
@@ -125,11 +104,9 @@ def a_star(puzzle):
         print("\nQueue size:", len(priority_queue))
         current_f_cost, _, current_state = heapq.heappop(priority_queue)
         current_board_str = board_to_string(current_state.board)
-        print(f"Exploring state with f_cost: {current_f_cost}")
 
         # Skip this state if a better cost is already recorded
         if current_board_str in visited and visited[current_board_str] < current_state.g_cost:
-            print("Skipping state as it was already visited with a lower cost")
             continue
 
         # Display the current state
@@ -143,7 +120,6 @@ def a_star(puzzle):
             return current_state
 
         # Explore possible moves from the current state
-        print("Exploring possible moves...")
         for move in current_state.get_possible_moves():
             new_state = current_state.clone()  # Create a new state
             new_state.moving_agent(move)  # Apply the move
@@ -200,4 +176,3 @@ def heuristic_manhattan(state):
                 # Fixed distance calculation
                 distance += abs(i - goal_x) + abs(j - goal_y)
     return distance
-
