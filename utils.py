@@ -1,12 +1,8 @@
-##########################################################################################################
-#### This one can be discussed on #####
-##########################################################################################################
+# utils.py
+import time
+import os
 
-def is_solvable(board):
-    # Check if the puzzle is solvable
-    pass
+def clear_screen():
+    """Clear the terminal screen"""
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-
-def generate_random_puzzle():
-    # Generate random 8-puzzle configurations
-    pass
