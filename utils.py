@@ -23,3 +23,22 @@ def print_puzzle_state(puzzle, step=None, move=None):
         print("\n" + "-" * 13)
     print("=" * 20 + "\n")
 
+def animate_solution(initial_puzzle, path, delay=0.5):
+    """Animatee the solution path"""
+    current_puzzle = initial_puzzle.clone()
+    print_puzzle_state(current_puzzle, step=0, move="Initial State")
+    time.sleep(delay)
+    
+    for i, move in enumerate(path, 1):
+        current_puzzle.moving_agent(move)
+        print_puzzle_state(current_puzzle, step=i, move=move)
+        time.sleep(delay)
+
+def print_solution_summary(path, nodes_expanded, time_taken):
+    """Print a summary of the solution"""
+    print("\nSolution Summary:")
+    print("-" * 20)
+    print(f"Steps to solution: {len(path)}")
+    print(f"Nodes expanded: {nodes_expanded}")
+    print(f"Time taken: {time_taken:.3f} seconds")
+    print(f"Solution path: {' -> '.join(path)}")
