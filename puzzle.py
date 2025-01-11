@@ -5,6 +5,9 @@ class Puzzle:
         self.empty_card = self.find_empty_card()
         self.cost = 0
 
+    def __lt__(self, other):
+        return self.cost < other.cost
+    
     # A function to find an empty space in the puzzle board
     def find_empty_card(self):
         for i in range(self.size):
@@ -57,12 +60,3 @@ class Puzzle:
             [4, 5, 6],
             [7, 8, 0],
         ]
-        return self.board == goal_state
-
-    # Check if two puzzle states are the same
-    def __eq__(self, other):
-        return isinstance(other, Puzzle) and self.board == other.board
-
-    # Create a hash for the puzzle state (for use in sets and dictionaries)
-    def __hash__(self):
-        return hash(tuple(tuple(row) for row in self.board))
