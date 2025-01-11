@@ -7,7 +7,7 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def print_puzzle_state(puzzle, step=None, move=None):
-    """Print  the  puzzle state in a nice formatt"""
+    """Print  the  puzzle  state in a nice formatt"""
     clear_screen()
     print("\n" + "=" * 20)
     if step is not None and move is not None:
