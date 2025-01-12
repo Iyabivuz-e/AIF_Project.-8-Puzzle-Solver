@@ -1,8 +1,3 @@
-##########################################################################################################
-#### This is the main page that will run the game ##### 
-#### If you want to see how it looks and works, you can run this file only. "python solver.py" ##### 
-##########################################################################################################
-
 from puzzle import Puzzle
 from algorithms import breadth_first_search, depth_first_search, a_star
 
@@ -16,15 +11,15 @@ def main():
 
     puzzle = Puzzle(start_board)
     print("Initial Puzzle State:")
-    puzzle.show_the_puzzel()
-
-    print("Solving with BFS...")
+    puzzle.show_the_puzzle()
+    
+    print("# Solving with BFS Algo #\n")
     breadth_first_search(puzzle)
 
-    print("Solving with DFS...")
+    print("\n# Solving with DFS #\n")
     depth_first_search(puzzle)
 
-    print("\nSolving with A* (Manhattan Distance)\n")
+    print("\n# Solving with A* (Manhattan Distance) #\n")
     a_star(puzzle)
 
 

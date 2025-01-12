@@ -1,6 +1,4 @@
-##########################################################################################################
-#### THE PUZZLE GAME BOILERPLATE : This will help us to move an AI agent in different dirrections  #####
-##########################################################################################################
+import copy
 
 class Puzzle:
     def __init__(self, board):
@@ -19,13 +17,13 @@ class Puzzle:
                 if self.board[i][j] == 0:
                     return (i, j)
 
-    # A function that moves an agent in differnt directions
+    # A function that moves an agent in different directions
     def moving_agent(self, direction):
-        x, y = self.empty_card # This shows where the empy row and column is. (x, row; y, column of the empty card)
+        x, y = self.empty_card  # This shows where the empty row and column is. (x, row; y, column of the empty card)
 
-        if direction == 'up' and x > 0: # Moving upwards
+        if direction == 'up' and x > 0:  # Moving upwards
             self.board[x][y], self.board[x-1][y] = self.board[x-1][y], self.board[x][y]
-            self.empty_card = (x-1, y) # Updating the empty card after moving
+            self.empty_card = (x-1, y)  # Updating the empty card after moving
         elif direction == 'down' and x < 2:  # Moving downwards
             self.board[x][y], self.board[x+1][y] = self.board[x+1][y], self.board[x][y]
             self.empty_card = (x+1, y)
@@ -40,28 +38,27 @@ class Puzzle:
     def get_possible_moves(self):
         x, y = self.empty_card
         moves = []
-        if x > 0 : moves.append('up')
-        if x < 2 : moves.append('down')
-        if y > 0 : moves.append('left')
-        if y < 2 : moves.append('right')
+        if x > 0: moves.append('up')
+        if x < 2: moves.append('down')
+        if y > 0: moves.append('left')
+        if y < 2: moves.append('right')
         return moves
 
-    # Function to show the puzzle solved
-    def show_the_puzzel(self):
+    # Function to show the puzzle
+    def show_the_puzzle(self):
         for row in self.board:
             print(row)
-        print("\n")
+        print(" ")
 
     def clone(self):
         # Clone the puzzle state manually
-        new_board = [row[:] for row in self.board]
-        return Puzzle(new_board)
+        return copy.deepcopy(self)
 
-    # Function to see whether is a goal state or not.. It can be used later.
+    # Function to see whether it is a goal state or not
     def is_goal_state(self):
         goal_state = [
-            [1,2,3],
-            [4,5,6],
-            [7,8,0],
+            [1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 0],
         ]
         return self.board == goal_state

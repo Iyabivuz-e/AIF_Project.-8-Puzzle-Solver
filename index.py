@@ -1,9 +1,3 @@
+print("Hello world!")
 
-
-
-
-
-
-
-
-# ALL THE TESTING IS DONE IN THIS FILE
+test
