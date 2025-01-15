@@ -26,6 +26,8 @@ This project implements an 8-puzzle solver using the following algorithms:
     •	Compare DFS, BFS, and A* performance.
 
 **How to Run**
+
+    •	clone the repository.
     
     •	Ensure all required files are in the same directory.
     
