@@ -3,6 +3,11 @@ from algorithms import breadth_first_search, depth_first_search, a_star
 
 
 def main():
+    # start_board = [
+    #     [7, 2, 4],
+    #     [5, 0, 6],
+    #     [8, 3, 1]
+    # ]
     start_board = [
         [1, 2, 3],
         [4, 0, 5],
@@ -12,7 +17,7 @@ def main():
     puzzle = Puzzle(start_board)
     print("Initial Puzzle State:")
     puzzle.show_the_puzzle()
-    
+
     print("# Solving with BFS Algo #\n")
     breadth_first_search(puzzle)
 

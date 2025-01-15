@@ -5,7 +5,6 @@ import copy
 from utils import board_to_string
 
 ################### BREADTH FIRST SEARCH ALGORITHM ########################
-
 def breadth_first_search(puzzle):
     start_time = time.time()
     frontier = deque([puzzle])
@@ -15,13 +14,14 @@ def breadth_first_search(puzzle):
     while frontier:
         current_puzzle = frontier.popleft()
         nodes_explored += 1
-        print(f"Exploring node {nodes_explored}:") 
+        print(f"Exploring node {nodes_explored}:")
         current_puzzle.show_the_puzzle()
 
         if current_puzzle.is_goal_state():
             end_time = time.time()
+            print("\nPuzzle is solved with BFS Algorithm!")
             print("Goal state reached!")
-            print("Time taken:", end_time - start_time, "seconds")
+            print(f"Time taken: {end_time - start_time:.3f} seconds")
             print("Nodes explored:", nodes_explored)
             return
 
@@ -54,8 +54,9 @@ def depth_first_search(puzzle):
 
         if current_puzzle.is_goal_state():
             end_time = time.time()
+            print("\nPuzzle is solved with DFS Algorithm!")
             print("Goal state reached!")
-            print("Time taken:", end_time - start_time, "seconds")
+            print(f"Time taken: {end_time - start_time:.3f} seconds")
             print("Nodes explored:", nodes_explored)
             return
 
@@ -97,16 +98,13 @@ def a_star(puzzle):
     nodes_explored = 0
     max_queue_size = 1
 
-    # Priority queue for states to explore
     open_set = []
     heapq.heappush(open_set, (0, id(puzzle), puzzle))
 
-    # Track visited states and paths
     g_scores = {}  # Cost from start to node
-    came_from = {}  # Parent pointers for path reconstruction
+    parent_node = {}  # Parent pointers for path reconstruction
     visited = set()  # Set of visited states
 
-    # Initialize start state
     g_scores[puzzle] = 0
 
     print("\nInitial State:")
@@ -115,46 +113,38 @@ def a_star(puzzle):
     while open_set:
         max_queue_size = max(max_queue_size, len(open_set))
 
-        # Get current best state
         current_f, _, current_puzzle = heapq.heappop(open_set)
         nodes_explored += 1
 
-        # Print current state being explored
         print(f"\nNodes explored: {nodes_explored}):")
         current_puzzle.show_the_puzzle()
 
         if current_puzzle.is_goal_state():
-            # Reconstruct path
             path = []
             current = current_puzzle
-            while current in came_from:
-                move, parent = came_from[current]
+            while current in parent_node:
+                move, parent = parent_node[current]
                 path.append(move)
                 current = parent
 
             path.reverse()
 
-            # Calculate metrics
             end_time = time.time()
             time_taken = end_time - start_time
 
-            print("\nPuzzle is solved with A* Algorith!")
-            print("\n**** DETAILS****")
-            print(f"Path length: {len(path)}")
-            print(f"Path: {', '.join(path)}")
-            print(f"Nodes explored: {nodes_explored}")
-            print(f"Max queue size: {max_queue_size}")
-            print(f"Time: {time_taken:.3f} seconds")
+            print("\nPuzzle is solved with A* Algorithm!")
+
+            print("Goal state reached!")
+            print(f"Time taken:, {time_taken:.3f}, seconds")
+            print("Nodes explored:", nodes_explored)
 
             return path
 
-        # Skip if we've seen this state
         if current_puzzle in visited:
             continue
 
         visited.add(current_puzzle)
 
-        # Explore possible moves
         for move in current_puzzle.get_possible_moves():
             neighbor = current_puzzle.clone()
             neighbor.moving_agent(move)
@@ -168,7 +158,7 @@ def a_star(puzzle):
                 g_scores[neighbor] = float('inf')
 
             if tentative_g_score < g_scores[neighbor]:
-                came_from[neighbor] = (move, current_puzzle)
+                parent_node[neighbor] = (move, current_puzzle)
                 g_scores[neighbor] = tentative_g_score
                 f_score = tentative_g_score + \
                     heuristic_manhattan(neighbor.board)

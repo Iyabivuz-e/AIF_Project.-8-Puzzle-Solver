@@ -9,56 +9,60 @@ class Puzzle:
 
     def __lt__(self, other):
         return self.cost < other.cost
-    
-    # A function to find an empty space in the puzzle board
+
     def find_empty_card(self):
         for i in range(self.size):
             for j in range(self.size):
                 if self.board[i][j] == 0:
                     return (i, j)
 
-    # A function that moves an agent in different directions
     def moving_agent(self, direction):
-        x, y = self.empty_card  # This shows where the empty row and column is. (x, row; y, column of the empty card)
+        x, y = self.empty_card
 
-        if direction == 'up' and x > 0:  # Moving upwards
-            self.board[x][y], self.board[x-1][y] = self.board[x-1][y], self.board[x][y]
-            self.empty_card = (x-1, y)  # Updating the empty card after moving
-        elif direction == 'down' and x < 2:  # Moving downwards
-            self.board[x][y], self.board[x+1][y] = self.board[x+1][y], self.board[x][y]
+        if direction == 'up' and x > 0:
+            self.board[x][y], self.board[x -
+                                         1][y] = self.board[x-1][y], self.board[x][y]
+            self.empty_card = (x-1, y)
+        elif direction == 'down' and x < 2:
+            self.board[x][y], self.board[x +
+                                         1][y] = self.board[x+1][y], self.board[x][y]
             self.empty_card = (x+1, y)
         elif direction == 'left' and y > 0:
-            self.board[x][y], self.board[x][y-1] = self.board[x][y-1], self.board[x][y]
+            self.board[x][y], self.board[x][y -
+                                            1] = self.board[x][y-1], self.board[x][y]
             self.empty_card = (x, y-1)
         elif direction == 'right' and y < 2:
-            self.board[x][y], self.board[x][y+1] = self.board[x][y+1], self.board[x][y] 
+            self.board[x][y], self.board[x][y +
+                                            1] = self.board[x][y+1], self.board[x][y]
             self.empty_card = (x, y+1)
 
-    # Finding the possible movements of the AI agent. If an agent reaches at the top, he cannot move
     def get_possible_moves(self):
         x, y = self.empty_card
         moves = []
-        if x > 0: moves.append('up')
-        if x < 2: moves.append('down')
-        if y > 0: moves.append('left')
-        if y < 2: moves.append('right')
+        if x > 0:
+            moves.append('up')
+        if x < 2:
+            moves.append('down')
+        if y > 0:
+            moves.append('left')
+        if y < 2:
+            moves.append('right')
         return moves
 
-    # Function to show the puzzle
     def show_the_puzzle(self):
         for row in self.board:
             print(row)
         print(" ")
 
     def clone(self):
-        # Clone the puzzle state manually
+
         return copy.deepcopy(self)
 
-    # Function to see whether it is a goal state or not
     def is_goal_state(self):
         goal_state = [
             [1, 2, 3],
             [4, 5, 6],
             [7, 8, 0],
         ]
+
         return self.board == goal_state
